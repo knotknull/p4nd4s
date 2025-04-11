@@ -1,0 +1,57 @@
+
+import the library
+
+import pandas as pd
+
+
+Couple of different ways you can create a dataframe
+
+# via a dictionary, key is column name, values are the row values
+df = pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]})
+print(df)  
+#    Yes   No
+# 0   50  131
+# 1   21    2
+    
+Another way is to create the data and columns separately 
+df = pd.DataFrame([[50, 21],[131,2]], columns=['Yes','No'])
+print(df)  
+#     Yes  No
+# 0   50  21
+# 1  131   2   
+
+Third ways is to hav ethe dictionary and name the index (this is the col 0 values i.e. row labels )
+    # FYI: row labeels are an index and can be assigned 
+    sdf = pd.DataFrame({'Bob': ['I liked it', 'It was awful'], 
+                        'Sue': ['Pretty good', 'Bland']},
+                       index=['Product A', 'Product B'])
+
+
+                    Bob          Sue
+Product A    I liked it  Pretty good
+Product B  It was awful        Bland
+
+
+
+# Reading files and getting a shape of data
+
+wine_reviews = pd.read_csv("../input/wine-reviews/winemag-data-130k-v2.csv")
+wine_reviews.shape
+
+# and writing 
+## now let's save it as a csv
+wine_revs.to_csv('./data/map__wine.csv') 
+map_revs = pd.read_csv('./data/map__wine.csv') 
+print('map shape: ', map_revs.shape)
+
+
+
+can manipulate the index to be a different column 
+reviews.set_index('title')
+
+
+can use loc for query like lookups 
+reviews.loc[reviews.country == 'Italy']
+
+enhanced query
+reviews.loc[reviews.country == 'Italy'] & (reviews.points >= 90)]

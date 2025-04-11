@@ -20,9 +20,9 @@ def l1_create_df() -> None:
     # FYI: row labeels are an index and can be assigned 
     sdf = pd.DataFrame({'Bob': ['I liked it', 'It was awful'], 
                         'Sue': ['Pretty good', 'Bland']},
-                       index=['Product A', 'Product B'])
+                        index=['Product A', 'Product B'])
     print(sdf)  
-                        Bob          Sue
+    #                    Bob          Sue
     # Product A    I liked it  Pretty good
     # Product B  It was awful        Bland
     
@@ -42,4 +42,23 @@ def l1_create_ser() -> None:
     return None
 
 def l1_read_wine() -> None:
+    wine_revs = pd.read_csv('./data/winemag-data-130k-v2.csv')
+    print('head : ' , wine_revs.head())
+    print('shape: ', wine_revs.shape)
+    
+    ## use the index within the file itself and designate it 
+    wine_revs = pd.read_csv('./data/winemag-data-130k-v2.csv', index_col=0)
+    print('head : ' , wine_revs.head())
+    
+
+def l1_write_wine() -> None:
+    # read it in and then
+    wine_revs = pd.read_csv('./data/map_wine_reviews.csv')
+    print('shape: ', wine_revs.shape)
+    
+    ## write it out
+    map_revs = pd.read_csv('./data/map_wine_reviews.csv', index_col=0)
+    print('head : ' , map_revs.head())
+
+    
     return None
