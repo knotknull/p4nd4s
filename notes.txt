@@ -186,15 +186,96 @@ def stars(row) -> int:
 ## Grouping and sorting
 ## 
 
-groups reviews by points value and then count number of entries for that points
-NOTE: value_counts() is a shortcut of groupby
+groupby allows you to group by a field or set of fields.  
+Here reviews are groupby points value and then count number of entries for that points
+
+NOTE: value_counts() is a shortcut of groupby()...count()
 
 reviews.groupby('points').points.count()
 
-Can also use summary functions agaisnt this data
+Can also use summary functions on this data groupby data
 reviews.groupby('points').points.min()
 
 Think of each groupby as a slice of the dataframe.  Apply can be called against the group by 
 i.e. select first wine name grouped by winery
 
 reviews.groupby('winery').apply(lambda df: df.title.iloc[0])
+
+
+Group by more than one column.  Pick best wine by country, province
+
+reviews.groupby(['country', 'province']).apply(lambda df: df.loc[df.points.idxmax()])
+
+
+agg() is another groupby method, can run different metrics on a dataframe simultaneously
+
+reviews.groupby(['country']).price.agg([len,min,max])
+
+## Multi-index
+
+mult-index had multiple levels (of group / breaks).  Here we have a mult-index 
+on country, province followed by an agg on len
+
+
+countries_reviewed = reviews.groupby(['country', 'province']).description.agg([len])
+
+cp_agg.groupby(['country']).price.agg([len]) 
+                              len
+country   province              
+Argentina Mendoza Province  3264
+          Other              536
+Armenia   Armenia              2
+Australia Australia Other    245
+          New South Wales     85
+...                          ...
+Uruguay   Juanico             12
+          Montevideo          11
+          Progreso            11
+          San Jose             3
+          Uruguay             24
+
+
+get the type of index 
+mi = countries_reviewed.index 
+type(mi)
+
+can convert a multi-index back to a regular index  via cp_agg.reset_index
+(if you look above the df is indexed on both country and provice, below it is only by numeric idx )
+
+cp_agg.reset_index() 
+        country          province   len
+0    Argentina  Mendoza Province  3264
+1    Argentina             Other   536
+2      Armenia           Armenia     2
+3    Australia   Australia Other   245
+4    Australia   New South Wales    85
+..         ...               ...   ...
+420    Uruguay           Juanico    12
+421    Uruguay        Montevideo    11
+422    Uruguay          Progreso    11
+423    Uruguay          San Jose     3
+424    Uruguay           Uruguay    24
+
+## Sorting
+
+sort data using the sort_values() method
+
+
+cp_agg = cp_agg.reset_index()
+cp_agg.sort_values(by='len')
+cp_agg.sort_values(by='len', ascending=False)
+
+
+
+sort by index: 
+cp_agg.sort_index()
+
+
+sort by more than one column :
+
+
+
+
+
+
+

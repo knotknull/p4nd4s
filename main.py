@@ -1,7 +1,7 @@
 import lesson1 as l1
 import lesson2 as l2
 import lesson3 as l3
-import lesson4 as l4
+from lesson4 import WineReviews
 
 
 def main():
@@ -18,9 +18,14 @@ def main():
 
     # l3.l3_sum()
 
-    # l4.l4_group()
-    # l4.l4_group_agg()
-    l4.l4_group_agg()
+    ## Use class version
+    wine_reviews = WineReviews("./data/winemag-data-130k-v2.csv")
+    # wine_reviews.group()
+    # wine_reviews.group_apply()
+    # wine_reviews.group_agg()
+    # wine_reviews.multi_idx()
+    # wine_reviews.sorted()
+    wine_reviews.sortby()
 
 
 if __name__ == "__main__":
