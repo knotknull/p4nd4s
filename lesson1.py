@@ -49,16 +49,21 @@ def l1_read_wine() -> None:
     ## use the index within the file itself and designate it 
     wine_revs = pd.read_csv('./data/winemag-data-130k-v2.csv', index_col=0)
     print('head : ' , wine_revs.head())
+    return None
     
 
 def l1_write_wine() -> None:
     # read it in and then
-    wine_revs = pd.read_csv('./data/map_wine_reviews.csv')
-    print('shape: ', wine_revs.shape)
-    
-    ## write it out
-    map_revs = pd.read_csv('./data/map_wine_reviews.csv', index_col=0)
-    print('head : ' , map_revs.head())
+    print('<<  l1_write_wine()  >>')
+    wine_revs = pd.read_csv('./data/winemag-data-130k-v2.csv', index_col=0)
+    print('wine_revs.shape: \n', wine_revs.shape)
 
+    print("write out to data/map_wine_reviews.csv") 
+    wine_revs.to_csv('./data/map_wine_reviews.csv') 
     
+    ## read in written file out
+    map_revs = pd.read_csv('./data/map_wine_reviews.csv', index_col=0)
+    print('map_revs.shape : \n', map_revs.shape)
+    print('map_revs.head(): \n', map_revs.head())
+
     return None

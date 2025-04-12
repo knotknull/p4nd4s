@@ -27,31 +27,157 @@ Third ways is to hav ethe dictionary and name the index (this is the col 0 value
                        index=['Product A', 'Product B'])
 
 
-                    Bob          Sue
-Product A    I liked it  Pretty good
-Product B  It was awful        Bland
+#                     Bob          Sue
+# Product A    I liked it  Pretty good
+# Product B  It was awful        Bland
 
 
-
-# Reading files and getting a shape of data
+# Reading files and getting a shape of data (i.e. rows, cols)
 
 wine_reviews = pd.read_csv("../input/wine-reviews/winemag-data-130k-v2.csv")
 wine_reviews.shape
 
-# and writing 
-## now let's save it as a csv
-wine_revs.to_csv('./data/map__wine.csv') 
-map_revs = pd.read_csv('./data/map__wine.csv') 
-print('map shape: ', map_revs.shape)
+# shape:  (129971, 14)
 
+
+
+Writing, let's save it as a csv  
+
+wine_revs.to_csv('./data/map__wine.csv') 
 
 
 can manipulate the index to be a different column 
 reviews.set_index('title')
 
 
-can use loc for query like lookups 
+
+## Indexing, Selecting, Assigning
+## 
+
+Access a dataframe by property (column) or index operator (column name)
+
+reviews = pd.read_csv("./data/winemag-data-130k-v2.csv")
+
+## access dataframe by property
+print("country: ", reviews.country)
+
+## or indexing operator
+print("country: ", reviews["country"])
+
+## access a specific entry
+print("      0: ", reviews["country"][0])
+
+
+There are two types of location lookups: 
+  iloc: index based
+  loc:  label based
+
+
+## get data by index-based position
+print("iloc[0]: ", reviews.iloc[0])
+
+loc and iloc are row-first, column-second
+
+# This gets all rows and the first column
+print("iloc[:,1]", reviews.iloc[:, 1])  
+
+# This gets first five rows and the first column
+reviews.iloc[:4, 1]
+
+
+Can use loc for query like lookups by label
+
+# get specific rows with specified columns
+reviews.loc[[0, 1, 10, 100], ["country", "province", "region_1", "region_2"]],
+
+# query like functionality
 reviews.loc[reviews.country == 'Italy']
 
 enhanced query
 reviews.loc[reviews.country == 'Italy'] & (reviews.points >= 90)]
+
+reviews.loc[
+    reviews.country.isin(["Australia", "New Zealand"]) & (reviews.points >= 95)
+]
+
+Can check for null / notnull
+# not null prices
+reviews.loc[reviews.price.notnull()]
+
+# is null prices
+reviews.loc[reviews.price.isnull()]
+
+
+Write to the dataframe, creat a new column
+
+## constant value assigned to all rows
+reviews = pd.read_csv("./data/winemag-data-130k-v2.csv")
+reviews["critic"] = "everyone"  
+
+## backwards iteration
+reviews["backwards_idx"] = range(len(reviews), 0, -1)  
+
+
+
+## Summary Functions and Maps 
+## 
+
+reviews = pd.read_csv('./data/winemag-data-130k-v2.csv')
+    
+## Summary Functions    
+## get summary stats on points
+reviews.points.describe() 
+
+## get mean stats on points
+reviews.points.mean()                      
+
+## get stats on taster_name
+reviews.taster_name.describe()
+
+## get unique taster_name
+reviews.taster_name.unique()
+
+## get counts on taster_name
+reviews.taster_name.value_counts()
+    
+## Map Functions:  takes in a series and returns a new transformed series    
+review_points_mean = reviews.points.mean()
+reviews.points.map(lambda p: p - review_points_mean)        ## creates a lambda mapping as a dispersal of the mean
+
+## map tropical and fruity
+n_trop = reviews.description.map(lambda desc: "tropical" in desc).sum()
+n_fruity = reviews.description.map(lambda desc: "fruity" in desc).sum()
+descriptor_counts = pd.Series([n_trop, n_fruity], index=['tropical', 'fruity'])
+
+
+
+## apply returns a transformed dataset by applying a function to it 
+## reviews.apply(remean_points, axis='columns')
+mean_points= reviews.points - review_points_mean
+print("[[ mean_points ]]\n ", mean_points )        ## apply transforms the entire dataset
+
+
+## apply stars function to reviews
+## 
+star_ratings = reviews.apply(stars, axis='columns') 
+star_ratings.loc[reviews.country.isin(['Canada'])])
+
+# get specific rows with columns     
+star_ratings.iloc[:100]
+
+# get specific rows with columns     
+star_ratings.shape
+    
+
+def stars(row) -> int:
+    """
+    stars function to convert points to stars
+    """
+    if row.country == 'Canada':
+        return 3
+    if row.points >= 95:
+        return 3
+    elif row.points >= 85:
+        return 2
+    else:
+        return 1

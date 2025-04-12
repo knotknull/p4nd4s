@@ -47,11 +47,9 @@ def l3_sum() -> None:
 
     star_ratings = reviews.apply(stars, axis='columns') 
     print("[[ star_ratings ]]\n ", star_ratings.loc[reviews.country.isin(['Canada'])])
-          
     ## print("reviews.loc[reviews.country.isin(['Australia', 'New Zealand']) & (reviews.points >= 95)]", 
     ## reviews.loc[reviews.country.isin(['Australia','New Zealand']) & (reviews.points >= 95)])   # query countries and price
     print("[[ star_ratings ]] ", star_ratings.iloc[:100])     # get specific rows with columns     
     print("[[ star_ratings.shape ]] ", star_ratings.shape)     # get specific rows with columns     
     
-          
     return None
