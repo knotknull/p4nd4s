@@ -25,7 +25,16 @@ def main():
     # wine_reviews.group_agg()
     # wine_reviews.multi_idx()
     # wine_reviews.sorted()
-    wine_reviews.sortby()
+    # wine_reviews.sortby()
+
+    ## data types and missing values
+    wine_reviews.show_dtypes()
+    wine_reviews.show_astype()
+
+    ## show null / not null
+    wine_reviews.show_null_country()
+    wine_reviews.fill_missing()
+    wine_reviews.replace_val()
 
 
 if __name__ == "__main__":

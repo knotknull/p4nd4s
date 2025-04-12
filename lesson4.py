@@ -100,6 +100,58 @@ class WineReviews:
             "cp_agg.sort_values(by=['country', 'len']) \n",
             cp_agg.sort_values(by=["country", "len"]),
         )
+        return None
+
+    def show_dtypes(self) -> None:
+        """
+        Data type of field / fields
+        """
+        print("reviews.price.dtype \n", self.reviews.price.dtype)
+        print("reviews.price.dtypes \n", self.reviews.dtypes)
+
+        return None
+
+    def show_astype(self) -> None:
+        """
+        astype example
+        """
+        print(
+            "reviews.price.astype('float64') \n", self.reviews.price.astype("float64")
+        )
+        return None
+
+    def show_null_country(self) -> None:
+        """
+        Show country isnull()
+        """
+        print(
+            "reviews[pd.isnull(reviews.country)] \n",
+            self.reviews[pd.isnull(self.reviews.country)],
+        )
+        return None
+
+    def fill_missing(self) -> None:
+        """
+        missing to unknown with fillna()
+        """
+        print(
+            "reviews.region_2.fillna('Unknown') \n",
+            self.reviews.region_2.fillna("Unknown"),
+        )
+        return None
+
+    def replace_val(self) -> None:
+        """
+        replace an existing value replace()
+        """
+
+        print(
+            "self.reviews.taster_twitter_handle.replace('@kerinokeefe', '@kerino') \n",
+            self.reviews.taster_twitter_handle.replace(
+                "@kerinokeefe", "@kerino"
+            ).unique(),
+        )
+        return None
 
 
 # Example usage:

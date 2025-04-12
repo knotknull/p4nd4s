@@ -270,12 +270,68 @@ cp_agg.sort_values(by='len', ascending=False)
 sort by index: 
 cp_agg.sort_index()
 
-
 sort by more than one column :
+cp_agg.sort_values(by=['country','len'])
+
+
+## Data Types and Missing Values
+## 
+
+
+data dtype for a column known as a dtype
+reviews.price.dtype
+# reviews.price.dtype 
+#  float64
+
+
+reviews.price.dtypes returns dtype of every column in DataFrame 
+reviews.price.dtypes 
+#  Unnamed: 0                 int64
+# country                   object
+# description               object
+# designation               object
+# points                     int64
+# price                    float64
+
+
+convert the type of a field with the astype() method
+
+reviews.points.astype('float64')
+
+Entries with missing values have NaN (Not a Number) which are float64
+
+dealing with missing values:  pd.isnull() or pd.notnull()
+
+NOTE: can use the following to find out how many null items in a column
+n_missing_prices = reviews.price.isnull().sum()
+
+Replace missing data with fillna()
+
+reviews.region_2.fillna("Unknown")
+
+Replace an existing value 
+reviews.taster_twitter_handle.replace("@kerinokeefe", "@kerino")
 
 
 
+What are the most common wine-producing regions? 
+
+Create a Series counting the number of times each value occurs in the region_1 field. 
+This field is often missing data, so replace missing values with Unknown. 
+Sort in descending order. Your output should look something like this:
+
+
+reviews_per_region = reviews.region_1.fillna("Unknown").value_counts().sort_values(ascending=False)
+
+
+Unknown                    21247
+Napa Valley                 4480
+                           ...  
+Bardolino Superiore            1
+Primitivo del Tarantino        1
+Name: region_1, Length: 1230, dtype: int64
 
 
 
-
+## Renaming and combining
+## 
