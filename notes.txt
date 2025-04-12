@@ -181,3 +181,20 @@ def stars(row) -> int:
         return 2
     else:
         return 1
+
+
+## Grouping and sorting
+## 
+
+groups reviews by points value and then count number of entries for that points
+NOTE: value_counts() is a shortcut of groupby
+
+reviews.groupby('points').points.count()
+
+Can also use summary functions agaisnt this data
+reviews.groupby('points').points.min()
+
+Think of each groupby as a slice of the dataframe.  Apply can be called against the group by 
+i.e. select first wine name grouped by winery
+
+reviews.groupby('winery').apply(lambda df: df.title.iloc[0])
