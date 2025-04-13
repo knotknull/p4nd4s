@@ -153,6 +153,22 @@ class WineReviews:
         )
         return None
 
+    def rename_col(self) -> None:
+        print(
+            "self.reviews.rename(columns={'points': 'score'})",
+            self.reviews.rename(columns={"points": "score"}).columns.tolist(),
+        )
+        return None
+
+    def change_axis(self) -> None:
+        print(
+            "self.reviews.rename_axis(\"wines\", axis='rows').rename_axis(\"fields\", axis='columns') \n\n",
+            self.reviews.rename_axis("wines", axis="rows").rename_axis(
+                "fields", axis="columns"
+            ),
+        )
+        return None
+
 
 # Example usage:
 # wine_reviews = WineReviews("./data/winemag-data-130k-v2.csv")

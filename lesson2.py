@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def l2_read_df() -> None:
-    reviews = pd.read_csv("./data/winemag-data-130k-v2.csv")
+    reviews = pd.read_csv("./data/wine/winemag-data-130k-v2.csv")
     pd.set_option("display.max_columns", 5)
     print("shape: ", reviews.shape)
     print("reviews: ", reviews)
@@ -28,7 +28,7 @@ def l2_read_df() -> None:
 
 
 def l2_loc() -> None:
-    reviews = pd.read_csv("./data/winemag-data-130k-v2.csv")
+    reviews = pd.read_csv("./data/wine/winemag-data-130k-v2.csv")
 
     ## get data by index-based position
     print("iloc[0]: ", reviews.iloc[0])
@@ -75,7 +75,7 @@ def l2_loc() -> None:
 
 
 def l2_assign() -> None:
-    reviews = pd.read_csv("./data/winemag-data-130k-v2.csv")
+    reviews = pd.read_csv("./data/wine/winemag-data-130k-v2.csv")
     reviews["critic"] = "everyone"  ## constant value assigned to all rows
     print("reviews['critic'] : ", reviews["critic"])
 

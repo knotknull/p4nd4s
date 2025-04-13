@@ -335,3 +335,48 @@ Name: region_1, Length: 1230, dtype: int64
 
 ## Renaming and combining
 ## 
+rename() allows changing index names and/or column names
+
+reviews.rename(columns={'points', 'score'})
+
+rename an index:
+
+reviews.rename(index={0:'firstEntry', 1: 'secondEntry'})
+## can also utilize set_index()
+
+Can rename the rows and columns axis as well:
+reviews.rename.axis("wines", axis='rows').rename_axis("fields", axis='columns')
+
+
+## Combining dataframes and/or series
+
+
+concat()
+join()
+merge()
+
+
+
+
+## concat two dataframes together
+pd.concat([canadian_youtube, british_youtube])
+
+# left right join
+left = canadian_youtube.set_index(['title', 'trending_date'])
+right = british_youtube.set_index(['title', 'trending_date'])
+
+left.join(right, lsuffix='_CAN', rsuffix='_UK')
+
+
+## joining to dataframes by a common field
+powerlifting_combined = powerlifting_meets.set_index("MeetID").join(powerlifting_competitors.set_index("MeetID"))
+
+
+
+
+
+
+
+
+
+
